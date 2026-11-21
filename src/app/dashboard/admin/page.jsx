@@ -65,7 +65,7 @@ export default function AdminDashboard() {
 
           {/* Navigation Links */}
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <a href="#" style={{
+            <a href="/dashboard/admin" style={{
               display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px',
               borderRadius: '12px', background: 'linear-gradient(90deg, rgba(147, 51, 234, 0.3) 0%, rgba(107, 33, 168, 0.15) 100%)',
               border: '1px solid rgba(168, 85, 247, 0.4)',
@@ -73,17 +73,17 @@ export default function AdminDashboard() {
             }}>
               <LayoutDashboard size={16} color="#d8b4fe" /> Overview
             </a>
-            <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
+            <a href="/dashboard/admin/setup" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
               <Users size={16} /> Manage Users
             </a>
-            <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
+            <a href="/dashboard/admin/setup" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
               <ShieldCheck size={16} /> RBAC Rules
             </a>
             <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
               <DollarSign size={16} /> Payroll Audits
             </a>
-            <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
-              <Settings size={16} /> Configurations
+            <a href="/dashboard/admin/setup" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
+              <Settings size={16} /> Organization Setup
             </a>
           </nav>
         </div>
@@ -235,19 +235,25 @@ export default function AdminDashboard() {
             }}>
               <h4 style={{ margin: '0 0 10px 0', fontSize: '13px', fontWeight: '700', color: '#f3e8ff' }}>Quick Configurations</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <button style={{
-                  padding: '10px 12px', background: 'linear-gradient(90deg, #9333ea 0%, #6b21a8 100%)',
-                  color: '#ffffff', border: 'none', borderRadius: '10px', fontSize: '12px', fontWeight: '700',
-                  cursor: 'pointer', textAlign: 'left', boxShadow: '0 4px 14px rgba(147, 51, 234, 0.35)'
-                }}>
-                  + Add New Employee Record
+                <button
+                  onClick={() => router.push('/dashboard/admin/setup')}
+                  style={{
+                    padding: '10px 12px', background: 'linear-gradient(90deg, #9333ea 0%, #6b21a8 100%)',
+                    color: '#ffffff', border: 'none', borderRadius: '10px', fontSize: '12px', fontWeight: '700',
+                    cursor: 'pointer', textAlign: 'left', boxShadow: '0 4px 14px rgba(147, 51, 234, 0.35)'
+                  }}
+                >
+                  + Create HR / Staff Login
                 </button>
-                <button style={{
-                  padding: '10px 12px', background: '#170c28', color: '#e9d5ff',
-                  border: '1px solid rgba(168, 85, 247, 0.25)', borderRadius: '10px', fontSize: '12px',
-                  cursor: 'pointer', textAlign: 'left'
-                }}>
-                  ⚙️ Update Organization Policies
+                <button
+                  onClick={() => router.push('/dashboard/admin/setup')}
+                  style={{
+                    padding: '10px 12px', background: '#170c28', color: '#e9d5ff',
+                    border: '1px solid rgba(168, 85, 247, 0.25)', borderRadius: '10px', fontSize: '12px',
+                    cursor: 'pointer', textAlign: 'left'
+                  }}
+                >
+                  ⚙️ Organization Setup (M2)
                 </button>
                 <button style={{
                   padding: '10px 12px', background: '#170c28', color: '#e9d5ff',

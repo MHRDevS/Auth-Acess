@@ -4,27 +4,33 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 
 export async function POST(req) {
   try {
-    const { email, password } = await req.json();
+    const body = await req.json();
+    const email = body.email ? body.email.toLowerCase().trim() : '';
+    const password = body.password;
 
-    const cleanEmail = email ? email.toLowerCase().trim() : '';
-
-    if (cleanEmail === 'admin@smit.com' && password === '12345') {
+    // Admin login check
+    if (email === 'admin@smit.com' && password === '123456') {
       return NextResponse.json({
         message: 'Admin login successful',
         role: 'Admin',
-        name: 'Administrator'
+        name: 'Hasan'
       }, { status: 200 });
     }
 
     const usersRef = collection(db, 'users');
-    const q = query(usersRef, where('email', '==', cleanEmail), where('password', '==', password));
-    const querySnapshot = await getDocs(q);
+    const q = query(usersRef, where('email', '==', email), where('password', '==', password));
+    const snap = await getDocs(q);
 
-    if (querySnapshot.empty) {
+    if (snap.empty) {
       return NextResponse.json({ message: 'Invalid email or password.' }, { status: 401 });
     }
 
-    const userData = querySnapshot.docs[0].data();
+    const userData = snap.docs[0].data();
+
+    // Check agar account block hai
+    if (userData.active === false) {
+      return NextResponse.json({ message: 'Your account has been deactivated by Admin.' }, { status: 403 });
+    }
 
     return NextResponse.json({
       message: 'Login successful',
@@ -32,8 +38,8 @@ export async function POST(req) {
       name: userData.name || 'User'
     }, { status: 200 });
 
-  } catch (error) {
-    console.error('Login Error:', error);
-    return NextResponse.json({ message: 'Server error during authentication.' }, { status: 500 });
+  } catch (err) {
+    console.log('Login error:', err);
+    return NextResponse.json({ message: 'Server error.' }, { status: 500 });
   }
 }

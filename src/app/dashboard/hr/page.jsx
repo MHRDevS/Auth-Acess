@@ -63,7 +63,7 @@ export default function HRDashboard() {
           </div>
 
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <a href="#" style={{
+            <a href="/dashboard/hr" style={{
               display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px',
               borderRadius: '12px', background: 'linear-gradient(90deg, rgba(147, 51, 234, 0.3) 0%, rgba(107, 33, 168, 0.15) 100%)',
               border: '1px solid rgba(168, 85, 247, 0.4)',
@@ -80,7 +80,7 @@ export default function HRDashboard() {
             <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
               <UserPlus size={16} /> Onboarding
             </a>
-            <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
+            <a href="/dashboard/hr/policy" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
               <FileCheck size={16} /> Policy Records
             </a>
           </nav>

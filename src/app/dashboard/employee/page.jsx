@@ -65,7 +65,7 @@ export default function EmployeeDashboard() {
           </div>
 
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <a href="#" style={{
+            <a href="/dashboard/employee" style={{
               display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px',
               borderRadius: '12px', background: 'linear-gradient(90deg, rgba(147, 51, 234, 0.3) 0%, rgba(107, 33, 168, 0.15) 100%)',
               border: '1px solid rgba(168, 85, 247, 0.4)',
@@ -73,7 +73,7 @@ export default function EmployeeDashboard() {
             }}>
               <User size={16} color="#d8b4fe" /> My Overview
             </a>
-            <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
+            <a href="/dashboard/employee/policy" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
               <Calendar size={16} /> Leaves & Holidays
             </a>
             <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
@@ -82,7 +82,7 @@ export default function EmployeeDashboard() {
             <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
               <DollarSign size={16} /> Salary & Payslips
             </a>
-            <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
+            <a href="/dashboard/employee/policy" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#c084fc', textDecoration: 'none', fontSize: '13px' }}>
               <FileText size={16} /> Company Policy
             </a>
           </nav>
