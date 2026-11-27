@@ -1,42 +1,59 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/firebase';
-import { collection, doc, setDoc, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc } from 'firebase/firestore';
 
 export async function POST(req) {
   try {
-    const { name, email, password, role } = await req.json();
+    const body = await req.json();
+    const name = body.name ? body.name.trim() : '';
+    const email = body.email ? body.email.toLowerCase().trim() : '';
+    const password = body.password || '';
+    const role = body.role === 'HR' ? 'HR' : 'Employee';
 
-    if (!email || !password) {
-      return NextResponse.json({ message: 'Email and password are required.' }, { status: 400 });
+    if (!name || !email || !password) {
+      return NextResponse.json(
+        { message: 'All fields are required.' },
+        { status: 400 }
+      );
+    }
+
+    if (email === 'admin@smit.com') {
+      return NextResponse.json(
+        { message: 'Admin email cannot be registered publicly.' },
+        { status: 403 }
+      );
     }
 
     const usersRef = collection(db, 'users');
-    const q = query(usersRef, where('email', '==', email));
-    const querySnapshot = await getDocs(q);
+    const existingQuery = query(usersRef, where('email', '==', email));
+    const existingSnap = await getDocs(existingQuery);
 
-    let userDocId;
-    if (!querySnapshot.empty) {
-      userDocId = querySnapshot.docs[0].id;
-    } else {
-      userDocId = doc(collection(db, 'users')).id;
+    if (!existingSnap.empty) {
+      return NextResponse.json(
+        { message: 'This email is already registered. Please Sign In.' },
+        { status: 409 }
+      );
     }
 
-    await setDoc(doc(db, 'users', userDocId), {
-      name: name || 'User',
-      email: email.toLowerCase().trim(),
+    await addDoc(usersRef, {
+      name,
+      email,
       password,
-      role: role || 'Employee',
-      updatedAt: new Date().toISOString()
+      role,
+      active: true,
+      createdAt: new Date().toISOString(),
     });
 
-    return NextResponse.json({
-      message: 'Account processed successfully!',
-      role: role || 'Employee',
-      name: name || 'User'
-    }, { status: 200 });
-
-  } catch (error) {
-    console.error('Signup Error:', error);
-    return NextResponse.json({ message: 'Server error during signup.' }, { status: 500 });
+    return NextResponse.json(
+      {
+        message: 'Account created successfully',
+        role,
+        name,
+      },
+      { status: 201 }
+    );
+  } catch (err) {
+    console.error('Signup error:', err);
+    return NextResponse.json({ message: 'Server error.' }, { status: 500 });
   }
 }
